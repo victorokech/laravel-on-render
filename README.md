@@ -95,4 +95,20 @@ That's all we need for the the DB. Now we need to make a few changes to our code
 
         CMD ["/start.sh"]
         ```
-   3. Under the folder `conf/nginx/` create the file `nginx-site.conf` and add the code from this commit
+   3. Under the folder `conf/nginx/` create the file `nginx-site.conf` and add the code from this **[commit](https://github.com/victorokech/laravel-on-render/commit/1a0662997d0afcc0ed040d0626191d63984d6750)**.
+   4. Last but not least, we need a deploy script that will run after PHP starts. This include things like, running composer, caching and DB migration and seeding. Create this `bash` script under the folder scripts `scripts/00-laravel-deploy.sh` and add the code below:
+   ```bash
+   #!/usr/bin/env bash
+    echo "Running composer"
+    composer global require hirak/prestissimo
+    composer install --no-dev --working-dir=/var/www/html
+
+    echo "Caching config..."
+    php artisan config:cache
+
+    echo "Caching routes..."
+    php artisan route:cache
+
+    echo "Running migrations..."
+    php artisan migrate --force
+   ```
