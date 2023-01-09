@@ -112,3 +112,4 @@ That's all we need for the the DB. Now we need to make a few changes to our code
     echo "Running migrations..."
     php artisan migrate --force
    ```
+Awesome, we should now be able to deploy our Laravel application on Render. For any inquiries feel free to shoot me an **[email](mailto:victor@snetts.com)**. Thank you for following along.
